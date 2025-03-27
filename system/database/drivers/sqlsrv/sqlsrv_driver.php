@@ -66,6 +66,9 @@ class CI_DB_sqlsrv_driver extends CI_DB {
 	public $failover = FALSE; 
 	public $options = FALSE; 
 
+	protected $autoinit = TRUE;
+
+
 	/**
 	 * Scrollable flag
 	 *
