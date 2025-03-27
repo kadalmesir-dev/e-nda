@@ -74,8 +74,8 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-    'dsn'      => '',
-    'hostname' => 'com-digitalization-public-division-sqlserver.database.windows.net',
+    'dsn'      => 'sqlsrv:Server=com-digitalization-public-division-sqlserver.database.windows.net;Database=digitalization-db-security-administration-dl',
+    'hostname' => '',
     'username' => 'dlsecurity',
     'password' => 'Standar123',
     'database' => 'digitalization-db-security-administration-dl',
