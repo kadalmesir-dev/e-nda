@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
     'dsn'      => '',
-    'hostname' => 'com-digitalization-public-division-sqlserver.database.windows.net,1433',
+    'hostname' => 'com-digitalization-public-division-sqlserver.database.windows.net',
     'username' => 'dlsecurity',
     'password' => 'Standar123',
     'database' => 'digitalization-db-security-administration-dl',
