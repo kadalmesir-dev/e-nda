@@ -74,8 +74,8 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-    'dsn'      => 'sqlsrv:Server=com-digitalization-public-division-sqlserver.database.windows.net;Database=digitalization-db-security-administration-dl',
-    'hostname' => '',
+    'dsn'      => '',
+    'hostname' => 'com-digitalization-public-division-sqlserver.database.windows.net,1433',
     'username' => 'dlsecurity',
     'password' => 'Standar123',
     'database' => 'digitalization-db-security-administration-dl',
@@ -88,14 +88,15 @@ $db['default'] = array(
     'char_set' => 'utf8',
     'dbcollat' => 'utf8_general_ci',
     'swap_pre' => '',
-    'encrypt' => FALSE,
+    'encrypt' => TRUE, // Coba ubah TRUE jika koneksi butuh SSL
     'compress' => FALSE,
     'stricton' => FALSE,
     'failover' => array(),
     'save_queries' => TRUE,
     'options' => array("TrustServerCertificate" => TRUE),
-    'autoinit' => TRUE,  
+    'autoinit' => TRUE,
 );
+
 
 
 // $db['default'] = array(
