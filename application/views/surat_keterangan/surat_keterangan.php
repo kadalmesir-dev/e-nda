@@ -1,4 +1,3 @@
-
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card mb-4 shadow-sm">
         <div class="row align-items-center p-4">
@@ -22,7 +21,7 @@
                         perlindungan informasi rahasia perusahaan.
                     </p>
                     <p class="fst-italic text-dark fw-bold" id="nomor">
-        
+
                     </p>
 
                     <p class="fst-italic text-dark fw-bold">
@@ -40,7 +39,9 @@
                     <h5 class="mb-0 text-primary">Pihak Pertama</h5>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="<?= base_url('surat_keterangan/index'); ?>" method="post">
+                        <input type="hidden" id="signature-data" name="signature">
+
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nama</label>
                             <div class="col-sm-10">
@@ -49,8 +50,7 @@
                                     <input
                                         type="text"
                                         class="form-control"
-                                        id="basic-icon-default-fullname
-                                        aria-describedby=" basic-icon-default-fullname2" />
+                                        id="name_dir" name="name_dir" value="Bantu Harrison Silaen" />
                                 </div>
                             </div>
                         </div>
@@ -60,10 +60,9 @@
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-company2" class="input-group-text"><i class='bx bxs-briefcase'></i></span>
                                     <input
-                                        type="text"
-                                        id="basic-icon-default-company"
                                         class="form-control"
-                                        aria-describedby="basic-icon-default-company2" />
+                                        type="text"
+                                        id="grade_dir" name="grade_dir" value="Direktur Umum" />
                                 </div>
                             </div>
                         </div>
@@ -73,11 +72,12 @@
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-message2" class="input-group-text"><i class='bx bxs-business'></i></span>
                                     <textarea
-                                        id="basic-icon-default-message"
+                                        id="address_dir"
+                                        name="address_dir"
                                         class="form-control"
                                         placeholder="Alamat kantor"
                                         aria-label="alamat kantor"
-                                        aria-describedby="basic-icon-default-message2"></textarea>
+                                        aria-describedby="basic-icon-default-message2">Jl. Merapi No. 23, Desa/Kelurahan Banaran, Kecamatan Grogol, Kabupaten Sukoharjo</textarea>
                                 </div>
                             </div>
                         </div>
@@ -94,8 +94,9 @@
                                     <input
                                         type="text"
                                         class="form-control"
-                                        id="basic-icon-default-fullname
-                                        aria-describedby=" basic-icon-default-fullname2" />
+                                        id="employee_name"
+                                        value="<?= isset($employee_name) ? $employee_name : ''; ?>"
+                                        name="employee_name" />
                                 </div>
                             </div>
                         </div>
@@ -108,8 +109,9 @@
                                     <input
                                         type="text"
                                         class="form-control"
-                                        id="basic-icon-default-fullname
-                                        aria-describedby=" basic-icon-default-fullname2" />
+                                        id="employee_nik"
+                                        value="<?= isset($employee_nik) ? $employee_nik : ''; ?>"
+                                        name="employee_nik" />
                                 </div>
                             </div>
                         </div>
@@ -119,10 +121,11 @@
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-company2" class="input-group-text"><i class='bx bxs-briefcase'></i></span>
                                     <input
-                                        type="text"
-                                        id="basic-icon-default-company"
                                         class="form-control"
-                                        aria-describedby="basic-icon-default-company2" />
+                                        type="text"
+                                        id="employee_grade"
+                                        value="<?= isset($employee_grade) ? $employee_grade : ''; ?>"
+                                        name="employee_grade" />
                                 </div>
                             </div>
                         </div>
@@ -133,10 +136,11 @@
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-company2" class="input-group-text"><i class='bx bxs-briefcase'></i></span>
                                     <input
-                                        type="text"
-                                        id="basic-icon-default-company"
                                         class="form-control"
-                                        aria-describedby="basic-icon-default-company2" />
+                                        type="text"
+                                        id="employee_unit"
+                                        value="<?= isset($employee_unit) ? $employee_unit : ''; ?>"
+                                        name="employee_unit" />
                                 </div>
                             </div>
                         </div>
@@ -146,11 +150,12 @@
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-message2" class="input-group-text"><i class='bx bxs-business'></i></span>
                                     <textarea
-                                        id="basic-icon-default-message"
+                                        id="employee_address"
+                                        name="employee_address"
                                         class="form-control"
                                         placeholder="Alamat kantor"
                                         aria-label="alamat kantor"
-                                        aria-describedby="basic-icon-default-message2"></textarea>
+                                        aria-describedby="basic-icon-default-message2"><?= isset($employee_address) ? $employee_address : ''; ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -324,11 +329,38 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-end">
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary">Send</button>
+                        <div class="container py-4">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8 col-lg-6">
+                                    <div class="card shadow-lg">
+                                        <div class="card-header bg-secondary text-white text-center fw-bold">
+                                            <i class="fa-solid fa-signature me-2 fa-2x"></i> Tanda Tangan Karyawan
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <div class="border rounded bg-light p-2 shadow-sm">
+                                                <canvas id="signature-pad" class="w-100" style="height: 250px;"></canvas>
+                                            </div>
+                                            <div class="d-flex justify-content-center gap-3 mt-3">
+                                                <button id="clear" type="button" class="btn btn-outline-danger btn-sm">
+                                                    <i class="fas fa-eraser"></i> Hapus
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-12 position-relative">
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-paper-plane me-2"></i>Kirim
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
@@ -339,25 +371,59 @@
 
 <!-- JS -->
 <script>
-        // Fungsi untuk mengonversi bulan ke angka Romawi
-        function getRomanMonth(month) {
-            const months = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
-            return months[month - 1];
+    // Fungsi untuk mengonversi bulan ke angka Romawi
+    function getRomanMonth(month) {
+        const months = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+        return months[month - 1];
+    }
+
+    // Ambil tanggal saat ini
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = getRomanMonth(currentDate.getMonth() + 1); // +1 karena bulan dimulai dari 0
+
+    // Ambil nomor urut dari localStorage atau mulai dari 1 jika belum ada
+    let nomorUrut = localStorage.getItem('nomorUrut') || 1;
+    nomorUrut = String(nomorUrut).padStart(4, '0'); // Menambahkan 0 jika nomor kurang dari 4 digit
+    localStorage.setItem('nomorUrut', parseInt(nomorUrut) + 1); // Update nomor urut untuk kunjungan berikutnya
+
+    // Gabungkan menjadi format yang diinginkan
+    const nomor = `${nomorUrut}/DL-NDA-LGL/${month}/${year}`;
+
+    // Menampilkan nomor pada elemen dengan id "nomor"
+    document.getElementById('nomor').innerText = 'Nomor : ' + nomor;
+
+
+
+    // Fungsi Signature TTD
+    const canvas = document.getElementById("signature-pad");
+    const signaturePad = new SignaturePad(canvas);
+
+    function resizeCanvas() {
+        const ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = 250 * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+        signaturePad.clear(); // Bersihkan setelah resize agar tidak blur
+    }
+
+    // Setel ukuran canvas saat halaman dimuat
+    window.addEventListener("load", resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
+
+    // Tombol Clear
+    document.getElementById("clear").addEventListener("click", () => {
+        event.preventDefault();
+        signaturePad.clear();
+    });
+
+    // Kondisi Signature
+    document.querySelector("form").addEventListener("submit", function(event) {
+        if (signaturePad.isEmpty()) {
+            alert("Harap tanda tangan terlebih dahulu.");
+            event.preventDefault(); //
+        } else {
+            document.getElementById("signature-data").value = signaturePad.toDataURL();
         }
-
-        // Ambil tanggal saat ini
-        const currentDate = new Date();
-        const year = currentDate.getFullYear();
-        const month = getRomanMonth(currentDate.getMonth() + 1); // +1 karena bulan dimulai dari 0
-
-        // Ambil nomor urut dari localStorage atau mulai dari 1 jika belum ada
-        let nomorUrut = localStorage.getItem('nomorUrut') || 1;
-        nomorUrut = String(nomorUrut).padStart(4, '0'); // Menambahkan 0 jika nomor kurang dari 4 digit
-        localStorage.setItem('nomorUrut', parseInt(nomorUrut) + 1); // Update nomor urut untuk kunjungan berikutnya
-
-        // Gabungkan menjadi format yang diinginkan
-        const nomor = `${nomorUrut}/DL-NDA-LGL/${month}/${year}`;
-
-        // Menampilkan nomor pada elemen dengan id "nomor"
-        document.getElementById('nomor').innerText = 'Nomor : ' + nomor;
-    </script>
+    });
+</script>

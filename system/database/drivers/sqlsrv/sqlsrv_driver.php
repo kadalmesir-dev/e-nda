@@ -60,6 +60,12 @@ class CI_DB_sqlsrv_driver extends CI_DB {
 	 */
 	public $dbdriver = 'sqlsrv';
 
+	// fixing error 
+	public $compress = FALSE; 
+	public $stricton = FALSE; 
+	public $failover = FALSE; 
+	public $options = FALSE; 
+
 	/**
 	 * Scrollable flag
 	 *

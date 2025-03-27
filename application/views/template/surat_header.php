@@ -38,9 +38,12 @@
     <link rel="stylesheet" href="<?= base_url('assets/');?>vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="<?= base_url('assets/');?>css/demo.css" />
 
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="<?= base_url('assets/');?>css/all.min.css" />
+  
+
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/');?>vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
     <link rel="stylesheet" href="<?= base_url('assets/');?>vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
@@ -48,6 +51,11 @@
     <!-- Helpers -->
     <script src="<?= base_url('assets/');?>vendor/js/helpers.js"></script>
     <script src="<?= base_url('assets/');?>js/config.js"></script>
+
+     <!-- Signature Library -->
+  <script src="<?= base_url('assets/'); ?>js/signature_pad.umd.min.js"></script>
+  <script src="<?= base_url('assets/');?>js/signature_pad.umd.min.map"></script>
+
   </head>
 
   <body>
