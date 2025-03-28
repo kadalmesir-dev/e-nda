@@ -59,9 +59,30 @@ class Surat_keterangan extends CI_Controller
 			$this->load->view('surat_keterangan/surat_keterangan', $data);
 			$this->load->view('template/surat_footer');
 		} else {
-			$data = $this->input->post();
+			// $data = $this->input->post();
 
-			// Simpan tanda tangan
+			// // Simpan tanda tangan
+			// if (!empty($data['signature'])) {
+			// 	$signature = str_replace(['data:image/png;base64,', ' '], ['', '+'], $data['signature']);
+			// 	$imageData = base64_decode($signature);
+
+			// 	$fileName = 'signature_' . time() . '.png';
+			// 	$filePath = FCPATH . 'upload/signature/' . $fileName;
+
+			// 	// Simpan gambar
+			// 	file_put_contents($filePath, $imageData);
+
+			// 	// Simpan path file ke database
+			// 	$data['signature'] = 'upload/signature/' . $fileName;
+			// }
+
+			// // Insert ke database
+			// $this->db->insert('NdaEmployee', $data);
+			// redirect('surat_keterangan/index');
+
+			$data = $this->input->post(); // Ambil semua data dari form
+
+			// Jika tanda tangan ada, simpan sebagai file
 			if (!empty($data['signature'])) {
 				$signature = str_replace(['data:image/png;base64,', ' '], ['', '+'], $data['signature']);
 				$imageData = base64_decode($signature);
@@ -76,8 +97,28 @@ class Surat_keterangan extends CI_Controller
 				$data['signature'] = 'upload/signature/' . $fileName;
 			}
 
-			// Insert ke database
-			$this->db->insert('NdaEmployee', $data);
+			// Jika hanya satu data, ubah menjadi array multidimensi
+			if (!isset($data[0])) {
+				$data = [$data];
+			}
+
+			// Ambil nama kolom dari array pertama
+			$columns = implode(", ", array_keys($data[0]));
+
+			// Buat array untuk menyimpan nilai dari setiap baris
+			$values = [];
+			foreach ($data as $row) {
+				$escaped_values = array_map([$this->db, 'escape'], $row); // Escape nilai untuk keamanan
+				$values[] = "(" . implode(", ", $escaped_values) . ")";
+			}
+
+			// Gabungkan semua baris
+			$sql = "INSERT INTO NdaEmployee ($columns) VALUES " . implode(", ", $values);
+
+			// query
+			$this->db->query($sql);
+
+			// Redirect setelah sukses
 			redirect('surat_keterangan/index');
 		}
 	}
