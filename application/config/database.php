@@ -6,7 +6,7 @@ $query_builder = TRUE;
 
 // Koneksi pertama (untuk simpan data)
 $db['default'] = array(
-    'dsn'      => 'odbc:mssql_odbc_1', 
+    'dsn'      => 'mssql_odbc_1', 
     'hostname' => '',
     'username' => 'dlsecurity',
     'password' => 'Standar123',
@@ -33,7 +33,7 @@ $db['default'] = array(
 
 // Koneksi kedua (untuk select data)
 $db['second_db'] = array(
-    'dsn'      => 'odbc:mssql_odbc_2', 
+    'dsn'      => 'mssql_odbc_2', 
     'hostname' => '',
     'username' => 'selectView',
     'password' => 'Danliris1234.',
