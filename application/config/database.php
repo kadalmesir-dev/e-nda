@@ -4,8 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+// Koneksi pertama (untuk simpan data)
 $db['default'] = array(
-    'dsn'      => '',
+    'dsn'      => 'odbc:mssql_odbc_1', 
     'hostname' => '',
     'username' => 'dlsecurity',
     'password' => 'Standar123',
@@ -13,21 +14,26 @@ $db['default'] = array(
     'dbdriver' => 'odbc',
     'dbprefix' => '',
     'pconnect' => FALSE,
-    'db_debug' => (ENVIRONMENT !== 'production'),
+    'db_debug' => TRUE,  
     'cache_on' => FALSE,
     'cachedir' => '',
     'char_set' => 'utf8',
     'dbcollat' => 'utf8_general_ci',
     'swap_pre' => '',
     'encrypt' => TRUE,
+    'compress' => FALSE,
+    'stricton' => FALSE,
+    'failover' => array(),
     'save_queries' => TRUE,
     'options' => array(
-        "odbc_dsn" => "mssql_odbc_1"
+        "TrustServerCertificate" => TRUE,
     ),
+    'autoinit' => TRUE,
 );
 
-$db['db_employee'] = array(
-    'dsn'      => '',
+// Koneksi kedua (untuk select data)
+$db['second_db'] = array(
+    'dsn'      => 'odbc:mssql_odbc_2', 
     'hostname' => '',
     'username' => 'selectView',
     'password' => 'Danliris1234.',
@@ -35,16 +41,19 @@ $db['db_employee'] = array(
     'dbdriver' => 'odbc',
     'dbprefix' => '',
     'pconnect' => FALSE,
-    'db_debug' => (ENVIRONMENT !== 'production'),
+    'db_debug' => TRUE, 
     'cache_on' => FALSE,
     'cachedir' => '',
     'char_set' => 'utf8',
     'dbcollat' => 'utf8_general_ci',
     'swap_pre' => '',
     'encrypt' => TRUE,
+    'compress' => FALSE,
+    'stricton' => FALSE,
+    'failover' => array(),
     'save_queries' => TRUE,
     'options' => array(
-        "odbc_dsn" => "mssql_odbc_2" 
+        "TrustServerCertificate" => TRUE,
     ),
+    'autoinit' => TRUE,
 );
-?>
