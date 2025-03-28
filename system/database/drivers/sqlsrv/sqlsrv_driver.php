@@ -64,7 +64,7 @@ class CI_DB_sqlsrv_driver extends CI_DB {
 	public $compress = FALSE; 
 	public $stricton = FALSE; 
 	public $failover = FALSE; 
-	public $options = FALSE; 
+	public $options = TRUE; 
 
 	protected $autoinit = TRUE;
 
