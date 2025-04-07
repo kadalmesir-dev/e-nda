@@ -60,6 +60,13 @@ abstract class CI_DB_driver {
 	 */
 	public $dsn;
 
+	// Khusus SQL Server
+	public $compress;
+	public $stricton;
+	public $failover;
+	public $options;
+	public $autoinit;
+
 	/**
 	 * Username
 	 *
