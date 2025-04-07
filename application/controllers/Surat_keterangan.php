@@ -27,7 +27,12 @@ class Surat_keterangan extends CI_Controller
 
 			// GET Data Request from URL
 			$uniqode = $this->input->get('keyword');
-			$employee = $this->M_employees->get_data_by_uniquecode($uniqode);
+			$employee  = [];
+
+			// Kondisi
+			if(!empty($uniqode)) {
+				$employee = $this->M_employees->get_data_by_uniquecode($uniqode);
+			}
 
 			$data = [
 				'employee_name'    => trim(($employee['Firstname'] ?? '') . ' ' . ($employee['Lastname'] ?? '')),
