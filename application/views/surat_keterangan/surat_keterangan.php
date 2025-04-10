@@ -95,7 +95,7 @@
                                         type="text"
                                         class="form-control"
                                         id="employee_name"
-                                        value="<?= isset($employee_name) ? $employee_name : ''; ?>"
+                                        value="<?= $employee['NAMA'] ?? '' ?>"
                                         name="employee_name" />
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                                         type="text"
                                         class="form-control"
                                         id="employee_nik"
-                                        value="<?= isset($employee_nik) ? $employee_nik : ''; ?>"
+                                        value="<?= $employee['NIK_KTP'] ?? '' ?>"
                                         name="employee_nik" />
                                 </div>
                             </div>
@@ -124,7 +124,7 @@
                                         class="form-control"
                                         type="text"
                                         id="employee_grade"
-                                        value="<?= isset($employee_grade) ? $employee_grade : ''; ?>"
+                                        value="<?= $employee['JABATAN'] ?? '' ?>"
                                         name="employee_grade" />
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                                         class="form-control"
                                         type="text"
                                         id="employee_unit"
-                                        value="<?= isset($employee_unit) ? $employee_unit : ''; ?>"
+                                        value="<?= $employee['UNIT'] ?? '' ?>"
                                         name="employee_unit" />
                                 </div>
                             </div>
@@ -155,7 +155,7 @@
                                         class="form-control"
                                         placeholder="Alamat kantor"
                                         aria-label="alamat kantor"
-                                        aria-describedby="basic-icon-default-message2"><?= isset($employee_address) ? $employee_address : ''; ?></textarea>
+                                        aria-describedby="basic-icon-default-message2"><?= $employee['ALAMAT'] ?? '' ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -225,7 +225,7 @@
 
                         <div class="mb-3 col-12">
                             <div class="alert alert-warning border-danger">
-                                <h5 class="text-center fw-bold text-danger">PASAL 2 LARANGAN PENGUNGKAPAN INFORMASI RAHASIA</h5>
+                                <h6 class="text-center fw-bold text-danger">PASAL 2 <br> LARANGAN PENGUNGKAPAN INFORMASI RAHASIA</h6>
                                 <ol class="mb-0 text-secondary">
                                     <li>
                                         <strong>PIHAK KEDUA</strong> mengerti dan bersedia mengikatkan diri secara hukum bahwa selama berstatus
@@ -273,7 +273,7 @@
                             <div class="alert alert-warning border-danger">
                                 <div class="mb-3 col-12 text-center">
                                     <h6 class="alert-heading fw-bold mb-3 text-danger">
-                                        PASAL 3 UMUM
+                                        PASAL 3 <br> UMUM
                                     </h6>
                                 </div>
                                 <p class="mb-0 text-secondary">
@@ -288,7 +288,7 @@
                             <div class="alert alert-warning border-danger">
                                 <div class="mb-3 col-12 text-center">
                                     <h6 class="alert-heading fw-bold mb-3 text-danger">
-                                        PASAL 4 KETERPISAHAN
+                                        PASAL 4 <br> KETERPISAHAN
                                     </h6>
                                 </div>
                                 <p class="mb-0 text-secondary">
@@ -420,8 +420,13 @@
     // Kondisi Signature
     document.querySelector("form").addEventListener("submit", function(event) {
         if (signaturePad.isEmpty()) {
-            alert("Harap tanda tangan terlebih dahulu.");
-            event.preventDefault(); //
+            Swal.fire({
+                title: "Tanda Tangan Wajib Di Isi!",
+                text: "Harap tanda tangan terlebih dahulu sebelum mengirim.",
+                icon: "warning",
+                confirmButtonText: "Oke"
+            });
+            event.preventDefault();
         } else {
             document.getElementById("signature-data").value = signaturePad.toDataURL();
         }

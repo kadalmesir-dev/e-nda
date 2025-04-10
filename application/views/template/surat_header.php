@@ -15,7 +15,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>NON DISCLOSURE AGREEMENT KARYAWAN</title>
+    <title><?= $judul;?></title>
 
     <meta name="description" content="" />
 
@@ -55,6 +55,9 @@
      <!-- Signature Library -->
   <script src="<?= base_url('assets/'); ?>js/signature_pad.umd.min.js"></script>
   <script src="<?= base_url('assets/');?>js/signature_pad.umd.min.map"></script>
+
+  <!-- Sweat Alert  -->
+  <script src="<?= base_url('assets/');?>js/sweetalert2.all.min.js"></script>
 
   </head>
 

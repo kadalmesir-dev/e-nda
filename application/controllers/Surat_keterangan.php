@@ -5,10 +5,10 @@ class Surat_keterangan extends CI_Controller
 {
 
 	public function __construct()
-    {
-            parent::__construct();
-            $this->load->model('M_employees');
-    }
+	{
+		parent::__construct();
+		$this->load->model('M_employees');
+	}
 
 
 	public function index()
@@ -30,20 +30,14 @@ class Surat_keterangan extends CI_Controller
 			$employee  = [];
 
 			// Kondisi
-			if(!empty($uniqode)) {
+			if (!empty($uniqode)) {
 				$employee = $this->M_employees->get_data_by_uniquecode($uniqode);
 			}
 
-			$data = [
-				'employee_name'    => trim(($employee['Firstname'] ?? '') . ' ' . ($employee['Lastname'] ?? '')),
-				'employee_nik'     => $employee['CitizenshipIdentity'] ?? '',
-				'employee_grade'   => $employee['EmploymentClass'] ?? '',
-				'employee_unit'    => $employee['EmploymentClass'] ?? '',
-				'employee_address' => $employee['Address'] ?? '',
-			];
 
-
-			$this->load->view('template/surat_header');
+			$data = ['employee' => $employee];
+			$data['judul'] = 'NON DISCLOSURE AGREEMENT KARYAWAN';
+			$this->load->view('template/surat_header', $data);
 			$this->load->view('surat_keterangan/surat_keterangan', $data);
 			$this->load->view('template/surat_footer');
 		} else {
@@ -66,7 +60,16 @@ class Surat_keterangan extends CI_Controller
 
 			// Insert ke database
 			$this->db->insert('NdaEmployee', $data);
-			redirect('surat_keterangan/index');
+			$this->session->set_flashdata('success', 'Data Berhasil Disimpan!');
+			redirect('surat_keterangan/end_page');
 		}
+	}
+
+	public function end_page()
+	{
+		$data['judul'] = 'Thanks You';
+		$this->load->view('template/surat_header', $data);
+		$this->load->view('surat_keterangan/end_page');
+		$this->load->view('template/surat_footer');
 	}
 }

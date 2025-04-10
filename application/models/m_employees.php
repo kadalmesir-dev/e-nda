@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_employees extends CI_Model
 {
@@ -11,11 +11,15 @@ class M_employees extends CI_Model
         $this->db_sqlsrv = $this->load->database('second_db', TRUE);
     }
 
-    public function get_data_by_uniquecode($uniquecode)
+    public function get_data_by_uniquecode($uniqode)
     {
-        return $this->db_sqlsrv
-            ->get_where('Employees', ['UniqueCode' => $uniquecode])
-            ->row_array();
-    }
 
+        $sql = "
+        SELECT * 
+        FROM dbo.ViewEmployee
+        WHERE uniquecode = ?
+    ";
+
+        return $this->db_sqlsrv->query($sql, [$uniqode])->row_array();
+    }
 }
