@@ -28,14 +28,20 @@ class Surat_keterangan extends CI_Controller
 			// GET Data Request from URL
 			$uniqode = $this->input->get('keyword');
 			$employee  = [];
+			$get_data = $this->M_employees->get_data_tanggal($uniqode);
 
 			// Kondisi
+			if (!empty($get_data['uniquecode']) && $get_data['uniquecode'] == $uniqode && $get_data['employee_years'] ==  date('Y')) {
+				redirect('surat_keterangan/end_page_2?keyword=' . $uniqode);
+			}
+			
 			if (!empty($uniqode)) {
 				$employee = $this->M_employees->get_data_by_uniquecode($uniqode);
 			}
 
 
 			$data = ['employee' => $employee];
+			$data['uniquecode'] = $uniqode;
 			$data['judul'] = 'NON DISCLOSURE AGREEMENT KARYAWAN';
 			$this->load->view('template/surat_header', $data);
 			$this->load->view('surat_keterangan/surat_keterangan', $data);
@@ -59,6 +65,8 @@ class Surat_keterangan extends CI_Controller
 			}
 
 			// Insert ke database
+			$data['signature_date'] = date('Y-m-d H:i:s');
+			$data['employee_years'] = date('Y');
 			$this->db->insert('NdaEmployee', $data);
 			$this->session->set_flashdata('success', 'Data Berhasil Disimpan!');
 			redirect('surat_keterangan/end_page');
@@ -68,8 +76,20 @@ class Surat_keterangan extends CI_Controller
 	public function end_page()
 	{
 		$data['judul'] = 'Thanks You';
+		$uniqode = $this->input->get('keyword');
+		$data['get_tanggal'] = $this->M_employees->get_data_tanggal($uniqode);
 		$this->load->view('template/surat_header', $data);
-		$this->load->view('surat_keterangan/end_page');
+		$this->load->view('surat_keterangan/end_page', $data);
+		$this->load->view('template/surat_footer');
+	}
+
+	public function end_page_2()
+	{
+		$data['judul'] = 'Oops !';
+		$uniqode = $this->input->get('keyword');
+		$data['get_data'] = $this->M_employees->get_data_tanggal($uniqode);
+		$this->load->view('template/surat_header', $data);
+		$this->load->view('surat_keterangan/end_page_2', $data);
 		$this->load->view('template/surat_footer');
 	}
 }

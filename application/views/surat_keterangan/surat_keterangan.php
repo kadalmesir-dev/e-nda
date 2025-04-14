@@ -20,7 +20,7 @@
                         ini dibuat antara <span class="fw-bold">PT. Dan Liris</span> dan karyawan sebagai bentuk komitmen terhadap
                         perlindungan informasi rahasia perusahaan.
                     </p>
-                    <p class="fst-italic text-dark fw-bold" id="nomor">
+                    <p class="fst-italic text-dark fw-bold" id="nomor_tampil">
 
                     </p>
 
@@ -41,7 +41,9 @@
                 <div class="card-body">
                     <form action="<?= base_url('surat_keterangan/index'); ?>" method="post">
                         <input type="hidden" id="signature-data" name="signature">
-
+                        <input type="hidden" name="uniquecode" id="uniquecode" value="<?= $uniquecode;?>">
+                        <input type="hidden" name="nomor" id="nomor">
+                        
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nama</label>
                             <div class="col-sm-10">
@@ -387,11 +389,14 @@
     nomorUrut = String(nomorUrut).padStart(4, '0'); // Menambahkan 0 jika nomor kurang dari 4 digit
     localStorage.setItem('nomorUrut', parseInt(nomorUrut) + 1); // Update nomor urut untuk kunjungan berikutnya
 
-    // Gabungkan menjadi format yang diinginkan
+    // Gabungkan
     const nomor = `${nomorUrut}/DL-NDA-LGL/${month}/${year}`;
 
     // Menampilkan nomor pada elemen dengan id "nomor"
-    document.getElementById('nomor').innerText = 'Nomor : ' + nomor;
+    document.getElementById('nomor_tampil').innerText = 'Nomor : ' + nomor;
+
+    // Set Nilai
+    document.getElementById('nomor').value = nomor;
 
 
 
