@@ -1,3 +1,11 @@
+<style type="text/css">
+    .disabled-group .input-group-text {
+        background-color: #e9ecef;
+        color: #6c757d;
+        pointer-events: none;
+    }
+</style>
+
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card mb-4 shadow-sm">
         <div class="row align-items-center p-4">
@@ -41,37 +49,37 @@
                 <div class="card-body">
                     <form action="<?= base_url('surat_keterangan/index'); ?>" method="post">
                         <input type="hidden" id="signature-data" name="signature">
-                        <input type="hidden" name="uniquecode" id="uniquecode" value="<?= $uniquecode;?>">
+                        <input type="hidden" name="uniquecode" id="uniquecode" value="<?= $uniquecode; ?>">
                         <input type="hidden" name="nomor" id="nomor">
-                        
+
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nama</label>
                             <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
+                                <div class="input-group input-group-merge disabled-group">
                                     <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
                                     <input
                                         type="text"
                                         class="form-control"
-                                        id="name_dir" name="name_dir" value="Bantu Harrison Silaen" />
+                                        id="name_dir" name="name_dir" value="Bantu Harrison Silaen" readonly />
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-company">Jabatan</label>
                             <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
+                                <div class="input-group input-group-merge disabled-group">
                                     <span id="basic-icon-default-company2" class="input-group-text"><i class='bx bxs-briefcase'></i></span>
                                     <input
                                         class="form-control"
                                         type="text"
-                                        id="grade_dir" name="grade_dir" value="Direktur Umum" />
+                                        id="grade_dir" name="grade_dir" value="Direktur Umum" readonly />
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-5">
                             <label class="col-sm-2 form-label" for="basic-icon-default-message">Alamat Kantor</label>
                             <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
+                                <div class="input-group input-group-merge disabled-group">
                                     <span id="basic-icon-default-message2" class="input-group-text"><i class='bx bxs-business'></i></span>
                                     <textarea
                                         id="address_dir"
@@ -79,7 +87,7 @@
                                         class="form-control"
                                         placeholder="Alamat kantor"
                                         aria-label="alamat kantor"
-                                        aria-describedby="basic-icon-default-message2">Jl. Merapi No. 23, Desa/Kelurahan Banaran, Kecamatan Grogol, Kabupaten Sukoharjo</textarea>
+                                        aria-describedby="basic-icon-default-message2" readonly>Jl. Merapi No. 23, Desa/Kelurahan Banaran, Kecamatan Grogol, Kabupaten Sukoharjo</textarea>
                                 </div>
                             </div>
                         </div>
@@ -91,14 +99,14 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nama</label>
                             <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
+                                <div class="input-group input-group-merge disabled-group">
                                     <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
                                     <input
                                         type="text"
                                         class="form-control"
                                         id="employee_name"
                                         value="<?= $employee['NAMA'] ?? '' ?>"
-                                        name="employee_name" />
+                                        name="employee_name" readonly />
                                 </div>
                             </div>
                         </div>
@@ -106,28 +114,28 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">NIK</label>
                             <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
+                                <div class="input-group input-group-merge disabled-group">
                                     <span id="basic-icon-default-fullname2" class="input-group-text"><i class='bx bx-dialpad-alt'></i></span>
                                     <input
                                         type="text"
                                         class="form-control"
                                         id="employee_nik"
                                         value="<?= $employee['NIK_KTP'] ?? '' ?>"
-                                        name="employee_nik" />
+                                        name="employee_nik" readonly />
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-company">Jabatan</label>
                             <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
+                                <div class="input-group input-group-merge disabled-group">
                                     <span id="basic-icon-default-company2" class="input-group-text"><i class='bx bxs-briefcase'></i></span>
                                     <input
                                         class="form-control"
                                         type="text"
                                         id="employee_grade"
                                         value="<?= $employee['JABATAN'] ?? '' ?>"
-                                        name="employee_grade" />
+                                        name="employee_grade" readonly />
                                 </div>
                             </div>
                         </div>
@@ -135,21 +143,21 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-company">Bagian</label>
                             <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
+                                <div class="input-group input-group-merge disabled-group">
                                     <span id="basic-icon-default-company2" class="input-group-text"><i class='bx bxs-briefcase'></i></span>
                                     <input
                                         class="form-control"
                                         type="text"
                                         id="employee_unit"
                                         value="<?= $employee['UNIT'] ?? '' ?>"
-                                        name="employee_unit" />
+                                        name="employee_unit" readonly />
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 form-label" for="basic-icon-default-message">Alamat Kantor</label>
                             <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
+                                <div class="input-group input-group-merge disabled-group">
                                     <span id="basic-icon-default-message2" class="input-group-text"><i class='bx bxs-business'></i></span>
                                     <textarea
                                         id="employee_address"
@@ -157,7 +165,7 @@
                                         class="form-control"
                                         placeholder="Alamat kantor"
                                         aria-label="alamat kantor"
-                                        aria-describedby="basic-icon-default-message2"><?= $employee['ALAMAT'] ?? '' ?></textarea>
+                                        aria-describedby="basic-icon-default-message2" readonly><?= $employee['ALAMAT'] ?? '' ?></textarea>
                                 </div>
                             </div>
                         </div>
