@@ -50,6 +50,7 @@
                     <form action="<?= base_url('surat_keterangan/index'); ?>" method="post">
                         <input type="hidden" id="signature-data" name="signature">
                         <input type="hidden" name="uniquecode" id="uniquecode" value="<?= $uniquecode; ?>">
+                        <input type="hidden" name="digital_id" id="digital_id" value="<?= $employee['digitalid'];?>">
                         <input type="hidden" name="nomor" id="nomor">
 
                         <div class="row mb-3">

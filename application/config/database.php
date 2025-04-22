@@ -4,6 +4,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+    // Local - Windows
+    $subdriver = 'sqlsrv';
+} else {
+    // Hosting - Linux
+    $subdriver = 'dblib';
+}
+
 // Koneksi pertama (untuk simpan data)
 $db['default'] = array(
     'dsn'      => '',
@@ -12,7 +20,7 @@ $db['default'] = array(
     'password' => 'Standar123',
     'database' => 'digitalization-db-security-administration-dl',
     'dbdriver' => 'pdo',
-    'subdriver' => 'dblib',
+    'subdriver' => $subdriver,
     'dbprefix' => '',
     'pconnect' => FALSE,
     'db_debug' => TRUE,
@@ -36,7 +44,7 @@ $db['second_db'] = array(
     'password' => 'danliris123.',
     'database' => 'com-danliris-db-hr-attendance',
     'dbdriver' => 'pdo',
-    'subdriver' => 'dblib',
+    'subdriver' => $subdriver,
     'dbprefix' => '',
     'pconnect' => FALSE,
     'db_debug' => TRUE,

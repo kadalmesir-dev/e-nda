@@ -23,7 +23,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://danliris.org/e-nda/'; 
+if (ENVIRONMENT === 'development') {
+    $config['base_url'] = 'http://localhost/my_project/e_nda_development/';
+} else {
+    $config['base_url'] = 'https://danliris.org/e_nda_development/'; 
+}
+
+// $config['base_url'] = 'https://danliris.org/e_nda_development/'; 
 
 /*
 |--------------------------------------------------------------------------
