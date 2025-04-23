@@ -28,8 +28,8 @@
                         ini dibuat antara <span class="fw-bold">PT. Dan Liris</span> dan karyawan sebagai bentuk komitmen terhadap
                         perlindungan informasi rahasia perusahaan.
                     </p>
-                    <p class="fst-italic text-dark fw-bold" id="nomor_tampil">
-
+                    <p class="fst-italic text-dark fw-bold">
+                        Nomor : <?= $nomor;?>
                     </p>
 
                     <p class="fst-italic text-dark fw-bold">
@@ -51,7 +51,7 @@
                         <input type="hidden" id="signature-data" name="signature">
                         <input type="hidden" name="uniquecode" id="uniquecode" value="<?= $uniquecode; ?>">
                         <input type="hidden" name="digital_id" id="digital_id" value="<?= $employee['digitalid'];?>">
-                        <input type="hidden" name="nomor" id="nomor">
+                        <input type="hidden" name="nomor" id="nomor" value="<?= $nomor;?>">
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nama</label>
@@ -382,32 +382,6 @@
 
 <!-- JS -->
 <script>
-    // Fungsi untuk mengonversi bulan ke angka Romawi
-    function getRomanMonth(month) {
-        const months = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
-        return months[month - 1];
-    }
-
-    // Ambil tanggal saat ini
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = getRomanMonth(currentDate.getMonth() + 1); // +1 karena bulan dimulai dari 0
-
-    // Ambil nomor urut dari localStorage atau mulai dari 1 jika belum ada
-    let nomorUrut = localStorage.getItem('nomorUrut') || 1;
-    nomorUrut = String(nomorUrut).padStart(4, '0'); // Menambahkan 0 jika nomor kurang dari 4 digit
-    localStorage.setItem('nomorUrut', parseInt(nomorUrut) + 1); // Update nomor urut untuk kunjungan berikutnya
-
-    // Gabungkan
-    const nomor = `${nomorUrut}/DL-NDA-LGL/${month}/${year}`;
-
-    // Menampilkan nomor pada elemen dengan id "nomor"
-    document.getElementById('nomor_tampil').innerText = 'Nomor : ' + nomor;
-
-    // Set Nilai
-    document.getElementById('nomor').value = nomor;
-
-
 
     // Fungsi Signature TTD
     const canvas = document.getElementById("signature-pad");

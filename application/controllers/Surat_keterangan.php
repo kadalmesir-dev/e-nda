@@ -9,6 +9,46 @@ class Surat_keterangan extends CI_Controller
 		parent::__construct();
 		$this->load->model('M_employees');
 	}
+	// Fungsi untuk konversi bulan ke angka Romawi
+	private function getRomanMonth($bulan)
+	{
+		$romawi = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+		return $romawi[$bulan - 1];
+	}
+
+	// generate nomor surat urut per tahun
+	private function generate_nomor_surat()
+	{
+		$tahun = date('Y');
+		$bulan_romawi = $this->getRomanMonth(date('n'));
+
+		// Lokasi file penyimpan counter
+		$file_path = FCPATH . 'assets/nomor_surat_per_tahun/counter_' . $tahun . '.txt';
+
+		// Jika file belum ada, buat file dengan isi awal 0001
+		if (!file_exists($file_path)) {
+			file_put_contents($file_path, '0001');
+		}
+
+		// Ambil angka terakhir
+		$angka_terakhir = (int) file_get_contents($file_path);
+
+		// Cek batas maksimal
+		if ($angka_terakhir > 5999) {
+			show_error("Nomor surat sudah melebihi batas maksimal 6000 untuk tahun $tahun.");
+		}
+
+		// Tambah 1, lalu simpan kembali ke file
+		$angka_baru = $angka_terakhir + 1;
+		file_put_contents($file_path, $angka_baru);
+
+		// Format ke 4 digit
+		$angka_formatted = str_pad($angka_baru, 4, '0', STR_PAD_LEFT);
+
+		// Gabung ke format nomor
+		return "{$angka_formatted}/DL-NDA-LGL/{$bulan_romawi}/{$tahun}";
+	}
+
 
 
 	public function index()
@@ -34,7 +74,7 @@ class Surat_keterangan extends CI_Controller
 			if (!empty($get_data['uniquecode']) && $get_data['uniquecode'] == $uniqode && $get_data['employee_years'] ==  date('Y')) {
 				redirect('surat_keterangan/end_page_2?keyword=' . $uniqode);
 			}
-			
+
 			if (!empty($uniqode)) {
 				$employee = $this->M_employees->get_data_by_uniquecode($uniqode);
 			}
@@ -42,6 +82,8 @@ class Surat_keterangan extends CI_Controller
 
 			$data = ['employee' => $employee];
 			$data['uniquecode'] = $uniqode;
+			$nomor_surat = $this->generate_nomor_surat();
+			$data['nomor'] = $nomor_surat;
 			$data['judul'] = 'NON DISCLOSURE AGREEMENT KARYAWAN';
 			$this->load->view('template/surat_header', $data);
 			$this->load->view('surat_keterangan/surat_keterangan', $data);
@@ -51,18 +93,24 @@ class Surat_keterangan extends CI_Controller
 
 			// Simpan tanda tangan
 			if (!empty($data['signature'])) {
+				// Ambil base64-nya dari input form
 				$signature = str_replace(['data:image/png;base64,', ' '], ['', '+'], $data['signature']);
 				$imageData = base64_decode($signature);
 
-				$fileName = 'signature_' . time() . '.png';
-				$filePath = FCPATH . 'upload/signature/' . $fileName;
+				// Buat nama file asli
+				$rawFileName = 'signature_' . time() . '.png';
 
-				// Simpan gambar
+				// Simpan file ke folder
+				$filePath = FCPATH . 'upload/signature/' . $rawFileName;
 				file_put_contents($filePath, $imageData);
 
-				// Simpan path file ke database
-				$data['signature'] = 'upload/signature/' . $fileName;
+				// Encode nama file jadi base64
+				$encodedFileName = base64_encode($rawFileName);
+
+				// Gabungkan dengan path, simpan ke DB
+				$data['signature'] = 'upload/signature/' . $encodedFileName;
 			}
+
 
 			// Insert ke database
 			$data['signature_date'] = date('Y-m-d H:i:s');
