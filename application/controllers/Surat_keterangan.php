@@ -109,6 +109,7 @@ class Surat_keterangan extends CI_Controller
 
 				// Gabungkan dengan path, simpan ke DB
 				$data['signature'] = 'upload/signature/' . $encodedFileName;
+				$data['signature_base64'] = 'data:image/png;base64,' . base64_encode($imageData);
 			}
 
 
