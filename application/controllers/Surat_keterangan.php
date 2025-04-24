@@ -22,31 +22,43 @@ class Surat_keterangan extends CI_Controller
 		$tahun = date('Y');
 		$bulan_romawi = $this->getRomanMonth(date('n'));
 
-		// Lokasi file penyimpan counter
 		$file_path = FCPATH . 'assets/nomor_surat_per_tahun/counter_' . $tahun . '.txt';
 
-		// Jika file belum ada, buat file dengan isi awal 0001
-		if (!file_exists($file_path)) {
-			file_put_contents($file_path, '0001');
+		// Ambil angka terakhir dari file jika ada
+		if (file_exists($file_path)) {
+			$angka_terakhir_file = (int)file_get_contents($file_path);
+		} else {
+			$angka_terakhir_file = 0;
 		}
 
-		// Ambil angka terakhir
-		$angka_terakhir = (int) file_get_contents($file_path);
+		// Ambil angka terakhir dari DB
+		$angka_terakhir_db = $this->M_employees->get_last_nomor_surat($tahun);
 
-		// Cek batas maksimal
-		if ($angka_terakhir > 5999) {
+		// Gunakan angka terbesar antara file dan DB
+		$angka_baru = max($angka_terakhir_file, $angka_terakhir_db) + 1;
+
+		if ($angka_baru > 5999) {
 			show_error("Nomor surat sudah melebihi batas maksimal 6000 untuk tahun $tahun.");
 		}
 
-		// Tambah 1, lalu simpan kembali ke file
-		$angka_baru = $angka_terakhir + 1;
+		// Simpan ke file untuk record
 		file_put_contents($file_path, $angka_baru);
 
-		// Format ke 4 digit
+		// Format 4 digit
 		$angka_formatted = str_pad($angka_baru, 4, '0', STR_PAD_LEFT);
+		$nomor_surat = "{$angka_formatted}/DL-NDA-LGL/{$bulan_romawi}/{$tahun}";
 
-		// Gabung ke format nomor
-		return "{$angka_formatted}/DL-NDA-LGL/{$bulan_romawi}/{$tahun}";
+		// Cek db apakah nomor sudha di pakai ?
+		$this->db->where('nomor', $nomor_surat);
+		$cek = $this->db->get('NdaEmployee')->num_rows();
+
+		if ($cek > 0) {
+			// Kalau sudah ada, ulangi proses generate
+			return $this->generate_nomor_surat();
+		}
+
+		// Nomor aman digunakan
+		return $nomor_surat;
 	}
 
 

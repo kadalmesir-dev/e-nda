@@ -35,5 +35,25 @@ class M_employees extends CI_Model
     
         return $this->db->query($sql, [$uniqode])->row_array();
     }
+
+    public function get_last_nomor_surat($tahun)
+    {
+        $sql = "
+        SELECT TOP 1 nomor
+        FROM dbo.NdaEmployee 
+        WHERE nomor LIKE ?
+        ORDER BY nomor DESC
+    ";
+
+        $likePattern = '%/' . $tahun;
+        $result = $this->db->query($sql, [$likePattern])->row_array();
+
+        if ($result && isset($result['nomor'])) {
+            $pecah = explode('/', $result['nomor']);
+            return (int) ($pecah[0] ?? 0);
+        }
+
+        return 0;
+    }
     
 }

@@ -381,6 +381,29 @@
 
 
 <!-- JS -->
+<?php if (!empty($uniquecode)) { ?>
+    <script>
+        // Menampilkan alert saat halaman dimuat
+        window.onload = function() {
+            Swal.fire({
+                title: 'Pemberitahuan',
+                text: 'Dimohon agar tidak menutup halaman ini ketika pertama kali membuka 🙏🏻, langsung mengisi E-NDA jika sudah masuk halaman pengisian',
+                icon: 'info',
+                confirmButtonText: 'OK',
+                width: '90%', // Menyesuaikan lebar pop-up
+                padding: '2em', // Memberikan padding di dalam pop-up
+                background: '#fff', // Warna latar belakang
+                showCloseButton: false, // Menambahkan tombol close
+                position: 'center', // Pastikan selalu di tengah layar
+            }).then((result) => {
+                if (result.isConfirmed) {
+            
+                }
+            });
+        };
+    </script>
+<?php } ?>
+
 <script>
 
     // Fungsi Signature TTD
