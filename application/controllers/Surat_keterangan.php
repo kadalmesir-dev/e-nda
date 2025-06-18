@@ -37,10 +37,6 @@ class Surat_keterangan extends CI_Controller
 		// Gunakan angka terbesar antara file dan DB
 		$angka_baru = max($angka_terakhir_file, $angka_terakhir_db) + 1;
 
-		if ($angka_baru > 5999) {
-			show_error("Nomor surat sudah melebihi batas maksimal 6000 untuk tahun $tahun.");
-		}
-
 		// Simpan ke file untuk record
 		file_put_contents($file_path, $angka_baru);
 
@@ -48,7 +44,7 @@ class Surat_keterangan extends CI_Controller
 		$angka_formatted = str_pad($angka_baru, 4, '0', STR_PAD_LEFT);
 		$nomor_surat = "{$angka_formatted}/DL-NDA-LGL/{$bulan_romawi}/{$tahun}";
 
-		// Cek db apakah nomor sudha di pakai ?
+		// Cek db apakah nomor sudah dipakai?
 		$this->db->where('nomor', $nomor_surat);
 		$cek = $this->db->get('NdaEmployee')->num_rows();
 
@@ -60,6 +56,51 @@ class Surat_keterangan extends CI_Controller
 		// Nomor aman digunakan
 		return $nomor_surat;
 	}
+
+	// private function generate_nomor_surat()
+	// {
+	// 	$tahun = date('Y');
+	// 	$bulan_romawi = $this->getRomanMonth(date('n'));
+
+	// 	$file_path = FCPATH . 'assets/nomor_surat_per_tahun/counter_' . $tahun . '.txt';
+
+	// 	// Ambil angka terakhir dari file jika ada
+	// 	if (file_exists($file_path)) {
+	// 		$angka_terakhir_file = (int)file_get_contents($file_path);
+	// 	} else {
+	// 		$angka_terakhir_file = 0;
+	// 	}
+
+	// 	// Ambil angka terakhir dari DB
+	// 	$angka_terakhir_db = $this->M_employees->get_last_nomor_surat($tahun);
+
+	// 	// Gunakan angka terbesar antara file dan DB
+	// 	$angka_baru = max($angka_terakhir_file, $angka_terakhir_db) + 1;
+
+	// 	if ($angka_baru > 5999) {
+	// 		show_error("Nomor surat sudah melebihi batas maksimal 6000 untuk tahun $tahun.");
+	// 	}
+
+	// 	// Simpan ke file untuk record
+	// 	file_put_contents($file_path, $angka_baru);
+
+	// 	// Format 4 digit
+	// 	$angka_formatted = str_pad($angka_baru, 4, '0', STR_PAD_LEFT);
+	// 	$nomor_surat = "{$angka_formatted}/DL-NDA-LGL/{$bulan_romawi}/{$tahun}";
+
+	// 	// Cek db apakah nomor sudha di pakai ?
+	// 	$this->db->where('nomor', $nomor_surat);
+	// 	$cek = $this->db->get('NdaEmployee')->num_rows();
+
+	// 	if ($cek > 0) {
+	// 		// Kalau sudah ada, ulangi proses generate
+	// 		return $this->generate_nomor_surat();
+	// 	}
+
+	// 	// Nomor aman digunakan
+	// 	return $nomor_surat;
+	// }
+
 
 
 

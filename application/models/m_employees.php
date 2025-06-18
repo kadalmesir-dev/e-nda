@@ -32,7 +32,7 @@ class M_employees extends CI_Model
             AND YEAR(employee_years) = YEAR(GETDATE())
             ORDER BY signature_date DESC
         ";
-    
+
         return $this->db->query($sql, [$uniqode])->row_array();
     }
 
@@ -55,5 +55,4 @@ class M_employees extends CI_Model
 
         return 0;
     }
-    
 }

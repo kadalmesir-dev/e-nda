@@ -29,7 +29,7 @@
                         perlindungan informasi rahasia perusahaan.
                     </p>
                     <p class="fst-italic text-dark fw-bold">
-                        Nomor : <?= $nomor;?>
+                        Nomor : <?= $nomor; ?>
                     </p>
 
                     <p class="fst-italic text-dark fw-bold">
@@ -50,8 +50,8 @@
                     <form action="<?= base_url('surat_keterangan/index'); ?>" method="post">
                         <input type="hidden" id="signature-data" name="signature">
                         <input type="hidden" name="uniquecode" id="uniquecode" value="<?= $uniquecode; ?>">
-                        <input type="hidden" name="digital_id" id="digital_id" value="<?= $employee['digitalid'];?>">
-                        <input type="hidden" name="nomor" id="nomor" value="<?= $nomor;?>">
+                        <input type="hidden" name="digital_id" id="digital_id" value="<?= $employee['digitalid']; ?>">
+                        <input type="hidden" name="nomor" id="nomor" value="<?= $nomor; ?>">
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nama</label>
@@ -405,7 +405,6 @@
 <?php } ?>
 
 <script>
-
     // Fungsi Signature TTD
     const canvas = document.getElementById("signature-pad");
     const signaturePad = new SignaturePad(canvas);

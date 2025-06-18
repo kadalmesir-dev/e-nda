@@ -9,6 +9,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
     $subdriver = 'sqlsrv';
 } else {
     // Hosting - Linux
+    // $subdriver = 'sqlsrv';
     $subdriver = 'dblib';
 }
 
