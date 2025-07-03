@@ -164,8 +164,8 @@
                                         id="employee_address"
                                         name="employee_address"
                                         class="form-control"
-                                        placeholder="Alamat kantor"
-                                        aria-label="alamat kantor"
+                                        placeholder="Alamat"
+                                        aria-label="alamat"
                                         aria-describedby="basic-icon-default-message2" readonly><?= $employee['ALAMAT'] ?? '' ?></textarea>
                                 </div>
                             </div>
