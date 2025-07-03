@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <div class="row mb-5">
-                            <label class="col-sm-2 form-label" for="basic-icon-default-message">Alamat Kantor</label>
+                            <label class="col-sm-2 form-label" for="basic-icon-default-message">Alamat</label>
                             <div class="col-sm-10">
                                 <div class="input-group input-group-merge disabled-group">
                                     <span id="basic-icon-default-message2" class="input-group-text"><i class='bx bxs-business'></i></span>

@@ -41,3 +41,18 @@ if (!function_exists('to_date_indonesia')) {
         return "$tgl $bln $thn";
     }
 }
+
+
+// Fixed Indexing table
+if (!function_exists('db_prepare_sqlserver')) {
+    function db_prepare_sqlserver()
+    {
+        $CI =& get_instance();
+
+        // Set SET options wajib SQL Server
+        $CI->db->query("SET ANSI_NULLS ON");
+        $CI->db->query("SET CONCAT_NULL_YIELDS_NULL ON");
+        $CI->db->query("SET ANSI_WARNINGS ON");
+        $CI->db->query("SET ANSI_PADDING ON");
+    }
+}

@@ -240,6 +240,9 @@ class Surat_keterangan extends CI_Controller
 				$data['signature_base64'] = 'data:image/png;base64,' . base64_encode($imageData);
 			}
 
+
+			db_prepare_sqlserver();
+
 			// Insert ke database
 			$data['signature_date'] = date('Y-m-d H:i:s');
 			$data['employee_years'] = date('Y');
