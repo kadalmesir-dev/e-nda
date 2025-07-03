@@ -245,15 +245,26 @@ class Surat_keterangan extends CI_Controller
 			$data['employee_years'] = date('Y');
 			
 			db_prepare_sqlserver();
-			
-			$this->db->insert('NdaEmployee', $data);
+		
+			$inserted = $this->db->insert('NdaEmployee', $data);
 			$error = $this->db->error();
 
-			// Tangani error dari UNIQUE INDEX
-			if (!empty($error['code'])) {
+			if (!$inserted) {
+				log_message('error', 'Insert gagal: ' . json_encode($error));
 				redirect('surat_keterangan/end_page_2?keyword=' . $uniqode);
 				return;
 			}
+
+
+			
+			// $this->db->insert('NdaEmployee', $data);
+			// $error = $this->db->error();
+
+			// // Tangani error dari UNIQUE INDEX
+			// if (!empty($error['code'])) {
+			// 	redirect('surat_keterangan/end_page_2?keyword=' . $uniqode);
+			// 	return;
+			// }
 
 			$this->session->set_flashdata('success', 'Data Berhasil Disimpan!');
 			redirect('surat_keterangan/end_page');
